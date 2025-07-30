@@ -1,0 +1,47 @@
+﻿@page "/runnow"
+@using MonitoreoTamanioBD.Services
+@using Microsoft.AspNetCore.Components.Web
+@inject IDatabaseMonitor Monitor
+@namespace MonitoreoTamanioBD.Components.Pages
+
+<h3>Ejecutar Captura Ahora</h3>
+
+<button class="btn btn-primary"
+        @onclick="Run"
+        disabled="@isRunning">
+    @(isRunning ? "Ejecutando…" : "Disparar Captura")
+</button>
+
+@if (!string.IsNullOrEmpty(message))
+{
+    <div class="alert alert-info mt-3">@message</div>
+}
+
+@code {
+    bool isRunning;
+    string? message;
+
+    async Task Run()
+    {
+        isRunning = true;    
+        message = "⏳ Iniciando captura...";
+        StateHasChanged();
+
+        try
+        {            
+            await Monitor.MonitorOnceAsync();
+            message = "✅ Captura completada.";
+        }
+        catch (Exception ex)
+        {
+            message = "❌ Error: " + ex.Message;
+        }
+        finally
+        {
+            isRunning = false;
+        }
+    }
+}
+
+
+

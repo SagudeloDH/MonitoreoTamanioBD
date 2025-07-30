@@ -1,0 +1,54 @@
+﻿@page "/history"
+@inject MonitoreoTamanioBD.Data.AuditoriaContext Db
+@using Microsoft.EntityFrameworkCore
+@using MonitoreoTamanioBD.Data
+@using MonitoreoTamanioBD.Models
+@inject AuditoriaContext Db
+@inject AuditoriaContext Db
+@namespace MonitoreoTamanioBD.Pages
+
+
+<h3>Histórico de Tamaño de Datos</h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Servidor</th>
+            <th>Base de Datos</th>
+            <th>Tamaño (MB)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (records.Count == 0)
+        {
+            <tr><td colspan="4" class="text-center">No hay registros de datos.</td></tr>
+        }
+        else
+        {
+            @foreach (var r in records)
+            {
+                <tr>
+                    <td>@r.FechaRegistro.ToShortDateString()</td>
+                    <td>@r.Servidor</td>                   
+                    <td>@r.NombreBD.Replace("_Data", "")</td>
+                    <td>@r.TamanoMB.ToString("F2")</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+    List<DatabaseSizeRecord> records = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Solo registros cuyo NombreBD termine en "_Data"
+        records = await Db.Records
+            .Where(r => r.NombreBD.EndsWith("_Data"))
+            .OrderByDescending(r => r.FechaRegistro)
+            .Take(100)
+            .ToListAsync();
+    }
+}
