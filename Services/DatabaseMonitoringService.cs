@@ -47,6 +47,13 @@ namespace MonitoreoTamanioBD.Services
             {
                 "CO_DTH_ADAPTER",
                 "CO_DTH_BASE"
+            },
+            ["Server3"] = new List<string>
+            {
+                "db.e-BussinessINVOIC",
+                "db.e-BussinessSuite",
+                "DESADV",
+                "SAC"
             }
         };
 
@@ -56,7 +63,8 @@ namespace MonitoreoTamanioBD.Services
         private static readonly Dictionary<string, string> ServerAliases = new()
         {
             ["Server1"] = "Jupiter_AWS",   // 10.10.25.100
-            ["Server2"] = "Copernico"      // 10.10.29.145
+            ["Server2"] = "Copernico",      // 10.10.25.102
+            ["Server3"] = "Copernico"      // 10.10.29.145
         };
 
         public DatabaseMonitoringService(
@@ -100,7 +108,7 @@ namespace MonitoreoTamanioBD.Services
         public async Task MonitorOnceAsync()
         {
             // Nombramos las cadenas definidas en appsettings
-            var connNames = new[] { "Server1", "Server2" /*, Server3…*/ };
+            var connNames = new[] { "Server1", "Server2", "Server3" };
 
             foreach (var name in connNames)
             {

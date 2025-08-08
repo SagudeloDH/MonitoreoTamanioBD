@@ -22,17 +22,12 @@
           integrity="sha384-…reemplaza-este-hash…"
           crossorigin="anonymous" />
 
-    @* 
-     Si no tienes un site.css real, bórralo por completo.
-     No uses  aquí o darás el “malformed component comment”.
-  *@
-
     @*  ÚNICO punto donde va el HeadOutlet  *@
-    <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
+    <component type="typeof(App)" render-mode="Server" />
 </head>
 <body>
     @*  El root de Blazor  *@
-    <component type="typeof(App)" render-mode="ServerPrerendered" />
+    <component type="typeof(App)" render-mode="Server" />
 
     @*  Solo blazor.server.js, elimínalo si ves blazor.web.js  *@
     <script src="_framework/blazor.server.js"></script>

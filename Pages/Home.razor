@@ -2,79 +2,83 @@
 @using Microsoft.AspNetCore.Components
 @inject NavigationManager Nav
 
-<PageTitle>Inicio - Tecnología Distrihogar</PageTitle>
+<PageTitle>Inicio – Tecnología Distrihogar</PageTitle>
 
 <div class="container mt-4">
-  <div class="row mb-4">
-    <div class="col">
-      <h1 class="display-4">Bienvenido, equipo de Tecnología</h1>
-      <p class="lead">
-        Este panel te permite:
-        <ul>
-          <li>Revisar el histórico de tamaño de datos de tus bases</li>
-          <li>Revisar el histórico de tamaño de logs</li>
-          <li>Disparar manualmente la captura de datos y logs</li>
-        </ul>
-      </p>
-    </div>
-  </div>
-
-  <div class="row">
-    <!-- Tarjeta Histórico Data -->
-    <div class="col-md-4 mb-3">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body d-flex flex-column">
-          <div class="mb-2 display-4 text-primary">
-            <span class="oi oi-data-transfer-download"></span>
-          </div>
-          <h5 class="card-title">Histórico Data</h5>
-          <p class="card-text flex-grow-1">
-            Consulta el historial de tamaños de datos de las bases seleccionadas.
-          </p>
-          <button class="btn btn-outline-primary mt-auto"
-                  @onclick="() => Nav.NavigateTo(\"history\")">
-            Ver Datos
-          </button>
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="display-4">Bienvenido, equipo de Tecnología</h1>
+            <p class="lead">Este panel te permite:</p>
+            <ul>
+                <li>Revisar el histórico de tamaño de datos de tus bases</li>
+                <li>Revisar el histórico de tamaño de logs</li>
+                <li>Disparar manualmente la captura de datos y logs</li>
+            </ul>
         </div>
-      </div>
     </div>
 
-    <!-- Tarjeta Histórico Log -->
-    <div class="col-md-4 mb-3">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body d-flex flex-column">
-          <div class="mb-2 display-4 text-success">
-            <span class="oi oi-loop-cw"></span>
-          </div>
-          <h5 class="card-title">Histórico Log</h5>
-          <p class="card-text flex-grow-1">
-            Consulta el historial de tamaños de los archivos de log.
-          </p>
-          <button class="btn btn-outline-success mt-auto"
-                  @onclick="() => Nav.NavigateTo(\"history-log\")">
-            Ver Logs
-          </button>
+    <div class="row">
+        <!-- Histórico Data -->
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body d-flex flex-column">
+                    <div class="mb-2 display-4 text-primary">
+                        <span class="oi oi-data-transfer-download"></span>
+                    </div>
+                    <h5 class="card-title">Histórico Data</h5>
+                    <p class="card-text flex-grow-1">
+                        Consulta el historial de tamaños de datos de las bases seleccionadas.
+                    </p>
+                    <button type="button" class="btn btn-outline-primary mt-auto"
+                            @onclick="GoHistory">
+                        Ver Datos
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Tarjeta Ejecutar Ahora -->
-    <div class="col-md-4 mb-3">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body d-flex flex-column">
-          <div class="mb-2 display-4 text-warning">
-            <span class="oi oi-rocket"></span>
-          </div>
-          <h5 class="card-title">Ejecutar Captura</h5>
-          <p class="card-text flex-grow-1">
-            Dispara ahora mismo la toma de datos y logs de tus servidores.
-          </p>
-          <button class="btn btn-outline-warning mt-auto"
-                  @onclick="() => Nav.NavigateTo(\"runnow\")">
-            Disparar Captura
-          </button>
+        <!-- Histórico Log -->
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body d-flex flex-column">
+                    <div class="mb-2 display-4 text-success">
+                        <span class="oi oi-loop-cw"></span>
+                    </div>
+                    <h5 class="card-title">Histórico Log</h5>
+                    <p class="card-text flex-grow-1">
+                        Consulta el historial de tamaños de los archivos de log.
+                    </p>
+                    <button type="button" class="btn btn-outline-success mt-auto"
+                            @onclick="GoHistoryLog">
+                        Ver Logs
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <!-- Ejecutar Ahora -->
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body d-flex flex-column">
+                    <div class="mb-2 display-4 text-warning">
+                        <span class="oi oi-rocket"></span>
+                    </div>
+                    <h5 class="card-title">Ejecutar Captura</h5>
+                    <p class="card-text flex-grow-1">
+                        Dispara ahora mismo la toma de datos y logs de tus servidores.
+                    </p>
+                    <button type="button" class="btn btn-outline-warning mt-auto"
+                            @onclick="GoRunNow">
+                        Disparar Captura
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
+
+@code {
+    void GoHistory() => Nav.NavigateTo("/history");
+    void GoHistoryLog() => Nav.NavigateTo("/history-log");
+    void GoRunNow() => Nav.NavigateTo("/runnow");
+}
